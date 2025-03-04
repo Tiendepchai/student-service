@@ -40,25 +40,7 @@ pip install -r requirements.txt
 
 ---
 
-## **2. Các API**
-Dưới đây là cấu trúc **dịch vụ quản lý sinh viên**.
-
-### **File: `app.py`**
-Chứa API Flask và khởi tạo database.
----
-
-### **File: `models.py`**
-Chứa model **Student**.
----
-
-### **File: `schemas.py`**
-Dùng **Marshmallow** để validate dữ liệu.
----
-
-### **File: `resources/student.py`**
----
-
-## **3. Chạy Dịch Vụ**
+## **2. Chạy Dịch Vụ**
 ### **Bước 1: Tạo Database**
 Chạy MySQL và tạo database:
 ```sh
@@ -78,7 +60,7 @@ API sẽ chạy tại `http://127.0.0.1:5000`.
 
 ---
 
-## **4. Kiểm thử API với cURL hoặc Postman**
+## **3. Kiểm thử API với cURL hoặc Postman**
 #### **Tạo sinh viên mới**
 ```sh
 curl -X POST http://127.0.0.1:5000/students -H "Content-Type: application/json" -d '{
@@ -116,7 +98,7 @@ curl -X DELETE http://127.0.0.1:5000/students/1
 
 ---
 
-## **5. Đóng gói với Docker**
+## **4. Đóng gói với Docker**
 ### **File: `Dockerfile`**
 ```dockerfile
 FROM python:3.10
