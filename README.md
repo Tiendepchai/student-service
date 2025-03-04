@@ -9,8 +9,7 @@ Dịch vụ này sẽ quản lý thông tin sinh viên với các tính năng ch
 
 ## **Công nghệ sử dụng**
 - **Flask**: Xây dựng API RESTful  
-- **Flask-SQLAlchemy**: ORM để làm việc với database  
-- **Marshmallow**: Validate dữ liệu  
+- **mysql-connector-python**: Để làm việc với database  
 - **MySQL hoặc PostgreSQL**: Lưu trữ dữ liệu  
 - **Docker**: Đóng gói service  
 
