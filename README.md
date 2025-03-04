@@ -42,14 +42,13 @@ pip install -r requirements.txt
 
 ## **2. Chạy Dịch Vụ**
 ### **Bước 1: Tạo Database**
-Chạy MySQL và tạo database:
+Chạy MySQL và tạo user:
 ```sh
 sudo -u root
 ```
 ```sql
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON student_db.* TO 'admin'@'localhost';
-CREATE DATABASE student_db;
 ```
 
 ### **Bước 2: Chạy API**
