@@ -22,7 +22,7 @@ student_service/
 │── models.py               # Định nghĩa bảng Student
 │── routes.py               # Xử lý API endpoints
 │── requirements.txt        # Thư viện cần thiết
-│── .gitignore        # Thư viện cần thiết
+│── .gitignore              # Lọc các file môi trường
 │── Dockerfile              # (Nếu deploy bằng Docker)
 └── .env                    # Config biến môi trường
 ```
@@ -101,33 +101,30 @@ curl -X DELETE http://127.0.0.1:5000/students/1
 ## **4. Đóng gói với Docker**
 ### **File: `Dockerfile`**
 ```dockerfile
+# Sử dụng image chính thức của Python
 FROM python:3.10
 
+# Đặt thư mục làm thư mục làm việc
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
+# Copy toàn bộ project vào container
 COPY . .
 
+# Cài đặt thư viện cần thiết
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Chạy ứng dụng Flask
 CMD ["python", "app.py"]
+
 ```
 
 ### **File: `docker-compose.yml`**
 ```yaml
 version: '3.10'
 services:
-  student_service:
-    build: .
-    ports:
-      - "5000:5000"
-    environment:
-      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://user:password@db/student_db
-    depends_on:
-      - db
-
-  db:
-    image: mysql:5.7
+  mysql_db:
+    image: mysql
+    container_name: mysql_student_service
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -136,6 +133,26 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  student_service:
+    build: .
+    container_name: student_service
+    restart: always
+    depends_on:
+      - mysql_db
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: localhost
+      DB_USER: admin
+      DB_PASSWORD: password
+      DB_NAME: student_db
+
+volumes:
+  mysql_data:
+
 ```
 
 ### **Chạy Docker**
